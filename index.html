@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>KW Twin City</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/styles.css" >
+    </head>
+   
+    <body>
+        <!-- side navigation which includes the title, search bar, list -->
+        <div id="mySidenav" class="sidenav">
+            <p class="title">Neighborhood Map</p>
+            <input type="search" placeholder="Search..." size="30"
+            data-bind="textInput: query, valueUpdate: 'keyup'" />
+            <!-- List of locations that will display under the search bar -->
+            <div data-bind="foreach: search">
+                <p class="list-item" data-bind="text: $data.name,
+                click: listViewClick"></p>
+            </div>
+        </div>
+        <!-- The hamberger button to show and hide the side navigation -->
+        <span id="hamberger" data-bind="click: open, style: { left: isOpen() ? '20px' : '270px'}">&#9776;</span>
+        <!-- The map that contains all the details of above locations -->
+        <div id="map" data-bind="style: { marginLeft: isOpen() ? '0px' : '250px'}"></div>
+        
+
+        <!-- Knockout -->
+        <script src="lib/knockout-3.4.2.js"></script>
+
+        <!-- App -->
+        <script src="js/app.js"></script>
+        <script src="js/data.js"></script>
+
+        <!-- Google maps callback -->
+        <script async defer onerror="mapError()" 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzfBJsg749O0iWgAUiOQ1IzG9_p4IueIE&v=3&callback=initMap">
+        </script>
+
+        
+    </body>
+</html>
