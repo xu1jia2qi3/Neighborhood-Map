@@ -1,29 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
+    <head>       
         <title>KW Twin City</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Boosttrap css -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <link rel="stylesheet" href="css/styles.css" >
-    </head>
-   
-    <body>
-        <!-- side navigation which includes the title, search bar, list -->
-        <div id="mySidenav" class="sidenav">
-            <p class="title">Neighborhood Map</p>
-            <input type="search" placeholder="Search..." size="30"
-            data-bind="textInput: query, valueUpdate: 'keyup'" />
-            <!-- List of locations that will display under the search bar -->
-            <div data-bind="foreach: search">
-                <p class="list-item" data-bind="text: $data.name,
-                click: listViewClick"></p>
+    </head>   
+    <body>                     
+        <div class="container">
+            <!-- logo and title -->
+            <nav class="navbar navbar-light bg-light">
+                <a class="navbar-brand">
+                <img src="css/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                Neighborhood Map
+                </a>
+            </nav>
+
+            <!-- search bar and map -->
+            <div class="row">
+                <!-- search bar -->
+                <section class="col-lg-3">
+                    <!-- search -->
+                    <form class="myForm">
+                        <input id="myInput" class="form-control" type="search" placeholder="Search"
+                        data-bind="textInput: query, valueUpdate: 'keyup'"  /> 
+                        <button type="button" class="btn btn-outline-info" data-bind="click: reset">Back</button>                  
+                    </form>
+                    
+                    <h5 class="subtitle">Locations</h5>
+                    <!-- list -->
+                    <div data-bind="foreach: search">
+                        <p class="list-item" data-bind="text: $data.name,
+                        click: listViewClick"></p>
+                    </div>
+                </section>
+
+
+                <!-- map -->
+                <section class="col-lg-9">
+                    <div id="map">
+                    </div> 
+                </section>
             </div>
+
+            
+            <footer>
+                <p>Here is Github <a href="https://github.com/xu1jia2qi3/Neighborhood-Map" target="_blank">Repository</a>. Copyright © 2019. Jiaqi Xu All Rights Reserved</p>
+            </footer>
+
         </div>
-        <!-- The hamberger button to show and hide the side navigation -->
-        <span id="hamberger" data-bind="click: open, style: { left: isOpen() ? '20px' : '270px'}">&#9776;</span>
-        <!-- The map that contains all the details of above locations -->
-        <div id="map" data-bind="style: { marginLeft: isOpen() ? '0px' : '250px'}"></div>
-        
+
+
+
+        <!-- Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
         <!-- Knockout -->
         <script src="lib/knockout-3.4.2.js"></script>
@@ -34,9 +68,7 @@
 
         <!-- Google maps callback -->
         <script async defer onerror="mapError()" 
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzfBJsg749O0iWgAUiOQ1IzG9_p4IueIE&v=3&callback=initMap">
-        </script>
-
-        
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0ysFt7aETq-Qh4lJbJahGHKkHW2g900w&v=3&callback=initMap">
+        </script>        
     </body>
 </html>

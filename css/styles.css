@@ -1,16 +1,36 @@
 html, body {
-	font-family: 'Raleway', sans-serif;
-	height: 100%;
-	margin: 0;
-	padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    margin: 10px;
+    padding: 0;    
 }
 
 #map {
-	bottom: 0px;
-	height: 100%;
-	left: 0px;
-	margin-left: 250px;
-	position: absolute;
-	right: -250px;
-	transition: 1.0s;
+	border: 1px solid #ddd; 
+    min-height: 600px;
+    height: 100%;
+}
+#myInput {
+    background-image: url('search.png'); 
+    background-position: 10px 8px; 
+    background-repeat: no-repeat; 
+    background-size: 20px 20px;
+    width: 100%; 
+    font-size: 16px; 
+    padding: 12px 20px 12px 40px; 
+    border: 1px solid #ddd;
+    margin-right: 12px; 
+  }
+
+.myForm {
+display: flex;
+flex-flow: row nowrap;
+margin-bottom: 12px; 
+}
+footer {
+border-top: 1px solid #14ADB2;
+}
+footer p {
+margin-top: 3px;
+font-size: 12px;
 }
