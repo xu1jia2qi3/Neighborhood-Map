@@ -49,8 +49,7 @@ function ViewModel() {
     var client_secret = "TJ1QN0TJ3X3BDHFVSCGGQCFUDVDQXQPGOK4P4IXI4KUKYSYZ";
     var foursquareUrl = "https://api.foursquare.com/v2/venues/search";
     var foursquarebaseUrl = "https://api.foursquare.com/v2/venues/";
-    var img = "https://pbs.twimg.com/media/DIxqdQFUQAEunYd.jpg";
-
+   
     self.showPlaces = ko.observableArray(initialPlaces);
     // connect to the raw data
     self.showPlaces().forEach(function (data) {

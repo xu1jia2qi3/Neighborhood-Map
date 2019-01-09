@@ -34,3 +34,7 @@ footer p {
 margin-top: 3px;
 font-size: 12px;
 }
+.list-item {
+	padding-left: 15px;
+	font-size: 20px;
+}
