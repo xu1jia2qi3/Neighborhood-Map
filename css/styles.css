@@ -10,6 +10,7 @@ html, body {
     min-height: 600px;
     height: 100%;
 }
+
 #myInput {
     background-image: url('search.png'); 
     background-position: 10px 8px; 
@@ -20,43 +21,52 @@ html, body {
     padding: 12px 20px 12px 40px; 
     border: 1px solid #ddd;
     margin-right: 12px; 
-  }
+}
 
 .myForm {
 display: flex;
 flex-flow: row nowrap;
 margin-bottom: 12px; 
 }
+
 footer {
 border-top: 1px solid #14ADB2;
 }
+
 footer p {
 margin-top: 3px;
 font-size: 12px;
 }
+
 .list-item {	
 	font-size: 15px;
 }
+
 .card-header {
     font-size: 20px;
 
 }
+
 .card {
     height: 91.7%
 }
+
 .infotitle {
 	font-size: 20px;
 	padding: 5px;
 	font-weight: bold;
 }
+
 .picture {
 	border-radius: 25px;
 	padding: 5px;
 }
+
 .address {
 	font-size: 16px;
 	padding: 5px;
 }
+
 a {
 	padding: 5px;
 	font-size: 14px;

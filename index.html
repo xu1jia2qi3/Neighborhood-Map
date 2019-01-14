@@ -20,7 +20,6 @@
                 Neighborhood Map
             </a>
         </nav>
-
         <!-- search bar and map -->
         <div class="row">
             <!-- search bar -->
@@ -30,36 +29,29 @@
                     <input id="myInput" class="form-control" type="search" placeholder="Search" data-bind="textInput: query, valueUpdate: 'keyup'">
                     <button type="button" class="btn btn-outline-info" data-bind="click: reset">Back</button>
                 </form>
-
-                <div class="card" ">
-                    <div class=" card-header">Locations</div>
-                <div class="list-group" data-bind="foreach: search">
-                    <a href="#" class="list-group-item list-group-item-action" data-bind="text: $data.title,click: listClick"></a>
+                <!-- location list  -->
+                <div class="card">
+                    <div class=" card-header">
+                        Locations                        
+                    </div>
+                    <div class="list-group" data-bind="foreach: search">
+                        <a href="#" class="list-group-item list-group-item-action" data-bind="text: $data.title,click: listClick"></a>
+                    </div>
                 </div>
-
-
-
+            </section>
+            <!-- map -->
+            <section class="col-lg-9">
+                <div id="map">
+                </div>
+            </section>
         </div>
-        </section>
 
-
-        <!-- map -->
-        <section class="col-lg-9">
-            <div id="map">
-            </div>
-        </section>
-    </div>
-
-
-    <footer>
-        <p>Here is Github <a href="https://github.com/xu1jia2qi3/Neighborhood-Map" target="_blank">Repository</a>.
-            Copyright © 2019. Jiaqi Xu All Rights Reserved</p>
-    </footer>
+        <footer>
+            <p>Here is Github <a href="https://github.com/xu1jia2qi3/Neighborhood-Map" target="_blank">Repository</a>.
+                Copyright © 2019. Jiaqi Xu All Rights Reserved</p>
+        </footer>
 
     </div>
-
-
-
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -67,14 +59,11 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
-
     <!-- Knockout -->
     <script src="lib/knockout-3.4.2.js"></script>
     <script src="lib/jquery-3.3.1.min.js"></script>
-
-    <!-- App -->
+    <!-- App.JS -->
     <script src="js/app.js"></script>
-
     <!-- Google maps callback -->
     <script async defer onerror="mapError()" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0ysFt7aETq-Qh4lJbJahGHKkHW2g900w&v=3&callback=initMap">
     </script>
