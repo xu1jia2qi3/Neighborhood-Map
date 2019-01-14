@@ -2,7 +2,7 @@
 var locations = [
     {
         title: "Conestoga Mall",
-        position: { lat: 43.497939, lng: -80.526985 },
+        position: { lat: 43.498398, lng: -80.529367 },
     },
     {
         title: "CF Fairview Park",
@@ -13,8 +13,8 @@ var locations = [
         position: { lat: 43.472856, lng: -80.544874 },
     },
     {
-        title: "Wilfrid Laurier University",
-        position: { lat: 43.473923, lng: -80.526092 },
+        title: "Waterloo Public Library",
+        position: { lat: 43.474450, lng: -80.570969 },
     },
     {
         title: "Conestoga College",
@@ -34,6 +34,27 @@ var locations = [
     }];
 
 
+//This is the function for showing the infowindow
+function showImage(img, marker, infoWindow, map) {
+    content = '<div class="infotitle">' + venuename + '</div>' +
+        '<img class ="picture" src="' + img + '"/>' + '<div class="address">' +
+        address1 + '</div>' + '<div class="address">' + address2 + '</div>' +
+        "<a href='" + foursquarelink + "'target='_blank'>" + "More Info" + "</a>";
+
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function () { marker.setAnimation(null); }, 1420);
+    infoWindow.marker = marker;
+    infoWindow.setContent(content);
+    infoWindow.open(map, marker);
+    map.setZoom(16);
+    map.panTo(marker.position);
+    // Make sure the marker property is cleared if the infowindow is closed.
+    infoWindow.addListener('closeclick', function () {
+        infoWindow.setMarker = null;
+    });
+}
+
+
 function ViewModel() {
     var self = this;
     // initial all the variable to shorten the following code
@@ -43,11 +64,25 @@ function ViewModel() {
     self.query = ko.observable('');
     self.showPlaces = ko.observableArray(locations);
 
-    var content = "loading...Please wait for a sec.";
     var client_id = "BL0T0CUZECJLTZIYOVA3KYXLJAU011W3C2JPVUMWT4CEZ1WQ";
-    var client_secret = "TJ1QN0TJ3X3BDHFVSCGGQCFUDVDQXQPGOK4P4IXI4KUKYSYZ";
+    var client_secret = "RW3DF1CVWSMHLVVKIS1ISS4A1EFJ3MHLQULX3FS0HX5QLSET";
     var foursquareUrl = "https://api.foursquare.com/v2/venues/search";
     var foursquarebaseUrl = "https://api.foursquare.com/v2/venues/";
+    var img = "css/noimage.png";
+    // make two icon colors
+    function makeMarkerIcon(markerColor) {
+        var markerImage = new google.maps.MarkerImage(
+            'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
+            '|40|_|%E2%80%A2',
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0, 0),
+            new google.maps.Point(10, 34),
+            new google.maps.Size(21, 34));
+        return markerImage;
+    }
+
+    var defaultIcon = makeMarkerIcon('E52B2B');
+    var highlightedIcon = makeMarkerIcon('2BDFE5');
 
 
     // This is making init markers function
@@ -57,21 +92,43 @@ function ViewModel() {
             position: data.position,
             map: map,
             title: data.title,
-            animation: google.maps.Animation.DROP
+            animation: google.maps.Animation.DROP,
+            icon: defaultIcon
+
         });
 
-        data.marker = marker;
-        this.markers.push(marker);
 
-        //creates info window if you click the marker.
+
+
+
+
+        data.marker = marker;
+
+        //creates info window if you click/hover/out the marker.
         marker.addListener('click', function () {
             openInfoWindow(this, largeInfowindow);
         });
+        marker.addListener('mouseover', function () {
+            this.setIcon(highlightedIcon);
+            this.setAnimation(google.maps.Animation.BOUNCE);
+        });
+        marker.addListener('mouseout', function () {
+            this.setIcon(defaultIcon);
+            this.setAnimation(0);
+        });
 
+        this.markers.push(marker);
         //it makes all the markers fit into the screen.
         bounds.extend(marker.position);
         map.fitBounds(bounds);
     });
+
+
+
+
+
+
+
 
 
     //This function means clicking the list title works the same as clicking the marker
@@ -120,7 +177,7 @@ function ViewModel() {
                 query: marker.title, // gets data from marker.title (array of object)
                 near: "waterloo,ON",
                 limit: 1, // limit 1 result to make it load faster.
-                v: 20190110 // version date
+                v: 20190114 // version date
             },
             // if ajax works correctly it will abstract information from foursquare
             success: function (data) {
@@ -130,79 +187,57 @@ function ViewModel() {
                 address2 = venue.location.formattedAddress[1];
                 foursquareId = venue.id;
                 foursquarelink = "https://foursquare.com/v/" + foursquareId;
+
+                $.ajax({
+                    dataType: "json",
+                    url: foursquarebaseUrl + foursquareId + '/photos',
+                    data: {
+                        client_id: client_id,
+                        client_secret: client_secret,
+                        limit: 2,
+                        v: 20190114,
+                    },
+                    // if there is picture, it will show a picture for the info window.
+                    success: function (data) {
+                        item = data.response.photos.items[0];
+                        prefix = item.prefix;
+                        suffix = item.suffix;
+                        imageURL = prefix + '250x200' + suffix;
+                        img = imageURL;
+                    },
+                }).done(function () {
+                    showImage(img, marker, infoWindow, map);
+                });
+
+            },
+            error: function () {
+                content = '<div class="infotitle">' + 'Something wrong right now.' +
+                    ' Please try again.' + '</div>';
+
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+                setTimeout(function () { marker.setAnimation(null); }, 1420);
+                infoWindow.marker = marker;
+                infoWindow.setContent(content);
+                infoWindow.open(map, marker);
+                map.setZoom(16);
+                map.panTo(marker.position);
+                infoWindow.addListener('closeclick', function () {
+                    infoWindow.setMarker = null;
+                });
             }
+
+
+
+
+
+
+
+
         }).done(function () {
-            // Generate the infomation to the info window.
-            content = '<div class="infotitle">' + venuename + '</div>' +
-                '<img class ="picture" src=""/>' + '<div class="address">' +
-                address1 + '</div>' + '<div class="address">' + address2 + '</div>' +
-                "<a href='" + foursquarelink + "'target='_blank'>" + "More Info" + "</a>";
-
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function () { marker.setAnimation(null); }, 1420);
-            infoWindow.marker = marker;
-            infoWindow.setContent(content);
-            infoWindow.open(map, marker);
-            map.setZoom(16);
-            map.panTo(marker.position);
-            // Make sure the marker property is cleared if the infowindow is closed.
-            infoWindow.addListener('closeclick', function () {
-                infoWindow.setMarker = null;
-            });
-
-
+            showImage(img, marker, infoWindow, map);
         });
 
-        // //photos
-        // $.ajax({
-        //     dataType: "json",
-        //     url: foursquarebaseUrl + foursquareId + '/photos',
-        //     data: {
-        //         client_id: client_id,
-        //         client_secret: client_secret,
-        //         limit: 2,
-        //         v: 20190110,
-        //     },
-        //     // if there is picture, it will show a picture for the info window.
-        //     success: function (data) {
-        //         item = data.response.photos.items[1];
-        //         prefix = item.prefix;
-        //         suffix = item.suffix;
-        //         imageURL = prefix + '250x200' + suffix;
-        //         img = imageURL;
-        //     },
-        // }).done(function () {
-        //     // Generate the infomation to the info window.
-        //     content = '<div class="infotitle">' + venuename + '</div>' +
-        //         '<img class ="picture" src="' + img + '"/>' + '<div class="address">' +
-        //         address1 + '</div>' + '<div class="address">' + address2 + '</div>' +
-        //         "<a href='" + foursquarelink + "'target='_blank'>" + "More Info" + "</a>";
-
-        //     marker.setAnimation(google.maps.Animation.BOUNCE);
-        //     setTimeout(function () { marker.setAnimation(null); }, 1420);
-        //     infowindow.marker = marker;
-        //     infowindow.setContent(content);
-        //     infowindow.open(map, marker);
-        //     map.setZoom(16);
-        //     map.panTo(marker.position);
-        //     // Make sure the marker property is cleared if the infowindow is closed.
-        //     infowindow.addListener('closeclick', function () {
-        //         infowindow.setMarker = null;
-        //     });
-
-
-        // })
-
     }
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -213,4 +248,8 @@ function initMap() {
         zoom: 14
     });
     ko.applyBindings(ViewModel());
+}
+
+function mapError() {
+    alert("Oops!. Please try again!");
 }

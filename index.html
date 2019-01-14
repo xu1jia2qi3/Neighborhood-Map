@@ -33,11 +33,12 @@
 
                 <div class="card" ">
                     <div class=" card-header">Locations</div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item" data-bind="foreach: search">
-                        <p class="list-item" data-bind="text: $data.title,click: listClick"></p>
-                    </li>
-                </ul>
+                <div class="list-group" data-bind="foreach: search">
+                    <a href="#" class="list-group-item list-group-item-action" data-bind="text: $data.title,click: listClick"></a>
+                </div>
+
+
+
         </div>
         </section>
 
