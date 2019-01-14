@@ -10,10 +10,13 @@ and run index.html file in browser.
 - Google map loaded from Maps API.
 - Location filter that uses an input field to filter map markers displayed. 
 - Back button to reset page.
-- Warning message if trouble loading Google Maps.
+- Warning message if trouble loading Google Maps or No pictures from Foursquare.
 - Mobile responsive.
 
 ## License
 * This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Warning
+  If excess foursquare daily calls limit, There will show no photos. (Regular Calls:Daily Limit: 950, Premium Calls:Daily Limit: 50)
 
 
