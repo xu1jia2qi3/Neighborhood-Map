@@ -1,23 +1,19 @@
 # Neighborhood Map
-* This is a single page application featuring a map of my neighborhood in Waterloo,ON. And also using Foursquare to provide you more information about that location.
+  This is Udactiy project of my neighborhood in Waterloo,ON with [Knockout.js](http://knockoutjs.com/), [Google Maps API](https://developers.google.com/maps/) and [Foursquare API](https://developer.foursquare.com/docs).
+ 
+## Setup
 
-## Getting Started
+Clone or download this [repository](https://github.com/xu1jia2qi3/Neighborhood-Map.git) 
+and run index.html file in browser.
 
-* You can *[clone](https://github.com/arrickx/Neighborhood-Map.git)* or *[download](https://github.com/arrickx/Neighborhood-Map.git)* this project via [GitHub](https://github.com) to your local machine.
-
-### How to use
-
-* Open and Run the **index.html**
-* You can resize the website to fit your preference.
-* You can search inside the search bar to sort for results.
-* or you Can visit [this website hosted by github](https://arrickx.github.io/Neighborhood-Map/).
-
+## Functionalities
+- Google map loaded from Maps API.
+- Location filter that uses an input field to filter map markers displayed. 
+- Back button to reset page.
+- Warning message if trouble loading Google Maps.
+- Mobile responsive.
 
 ## License
-
 * This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
-## Acknowledgments
-
-* **No img Image** was provided by [Twitter](https://pbs.twimg.com/media/DIxqdQFUQAEunYd.jpg).
